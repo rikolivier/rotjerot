@@ -4,5 +4,24 @@
 
 .isLoading {
     background-color: white;
-    mix-blend-mode: difference
+    color:white;
 }
+
+.isLoading::before {
+    background-color: black;
+    mix-blend-mode: normal;
+}
+
+
+
+/* 
+
+* moving organisms 
+
+Layers for blend mode Difference one basisc element for our visual styling
+
+Create two boxes over eachother 
+- Difference layout text color adapts to background color automatically 
+
+
+*/
