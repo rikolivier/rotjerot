@@ -3,25 +3,5 @@
 @tailwind utilities;
 
 .isLoading {
-    background-color: white;
-    color:white;
+    color:black;
 }
-
-.isLoading::before {
-    background-color: black;
-    mix-blend-mode: normal;
-}
-
-
-
-/* 
-
-* moving organisms 
-
-Layers for blend mode Difference one basisc element for our visual styling
-
-Create two boxes over eachother 
-- Difference layout text color adapts to background color automatically 
-
-
-*/
