@@ -17,7 +17,7 @@ const User: React.FC = () => {
         className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
         onClick={sessionData ? () => void signOut() : () => void signIn()}
       >
-        {sessionData ? "Sign out" : "Sign in"}
+        {sessionData ? "Afmelden" : "Aanmelden"}
       </button>
     </div>
   );
@@ -40,7 +40,7 @@ const Home: NextPage = () => {
         <Image src={lilou} alt="LAB" width={100} />
         <h2 className="text-3xl font-bold  text-white">I am alive</h2>
         {/* <p>
-          A explosive knowledge sharer and fermentation tracker in a visual way
+      An explosive knowledge sharer and fermentation tracker in a visual way
         </p> */}
         <button
           className={[
@@ -49,8 +49,9 @@ const Home: NextPage = () => {
           ].join(" ")}
           onClick={handleLoading}
         >
-          <User />
+          start
         </button>
+        <User />
       </main>
     </>
   );
