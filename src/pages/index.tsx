@@ -2,7 +2,7 @@ import { useState } from "react";
 import { type NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import lilou from "./lilou.png"; // Tell webpack this JS file uses this image
+import lilou from "./lilou.png";
 import { useSession, signIn, signOut } from "next-auth/react";
 
 const User: React.FC = () => {
