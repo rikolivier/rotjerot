@@ -37,7 +37,7 @@ const Home: NextPage = () => {
         <meta name="description" content="Rotje Rot" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#000000] to-[#272727]">
-        <Image src={lilou} alt="LAB" width={100} />
+        {/* <Image src={lilou} alt="LAB" width={100} /> */}
         <h2 className="text-3xl font-bold  text-white">I am alive</h2>
         <p className="text-white">
           An explosive knowledge sharer and fermentation tracker in a visual way
