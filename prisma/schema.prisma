@@ -14,13 +14,6 @@ model Example {
   updatedAt DateTime @updatedAt
 }
 
-model Ferment {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  ferment   String
-}
-
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -56,6 +49,7 @@ model User {
   role          String?   @default("user")
   accounts      Account[]
   sessions      Session[]
+  ferments      Ferment[]
 }
 
 model VerificationToken {
@@ -64,4 +58,24 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Ferment {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  notes     Note[]
+}
+
+model Note {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  content   String   @db.Text
+  ferment   Ferment  @relation(fields: [fermentId], references: [id])
+  fermentId String
 }
