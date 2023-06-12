@@ -28,21 +28,23 @@ const Content: React.FC = () => {
           }
         }}
       />
-      {/* <p className="text-center text-2xl text-white">
-        <ul>
-          {ferments?.map(ferment) => (
-            <li key={ferment.id}>
-              <a href="#" onClick={(evt) => {
-                evt.preventDefault();
-              }}>
-                {ferment.title}
-              </a>
-            
-            </li>
-          )}
-          </ul>
-      </p> */}
     </>
+  );
+};
+
+const ListFerments: React.FC = () => {
+  const { data: sessionData } = useSession();
+  const mappedFerments = api.ferment.getAll.useQuery(undefined, {
+    enabled: sessionData?.user !== undefined,
+  });
+  return (
+    <ul>
+      {mappedFerments.data?.map((ferment) => (
+        <li className="text-center text-2xl text-white" key={ferment.id}>
+          {ferment.title}
+        </li>
+      ))}
+    </ul>
   );
 };
 
@@ -90,6 +92,7 @@ const Home: NextPage = () => {
           An explosive knowledge sharer and fermentation tracker in a visual way
         </p>
         <Content />
+        <ListFerments />
         <button
           className={[
             `rounded bg-purple-900 py-2 px-4 font-bold text-white hover:bg-purple-600`,

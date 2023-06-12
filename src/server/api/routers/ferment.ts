@@ -7,7 +7,7 @@ export const fermentRouter = createTRPCRouter({
    .query(({ ctx }) => {
     return ctx.prisma.ferment.findMany({
         where: {
-            id: ctx.session.user.id,
+            userId: ctx.session.user.id,
         }
     });
     }),
