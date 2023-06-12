@@ -7,15 +7,9 @@ import { api } from "../utils/api";
 
 const Content: React.FC = () => {
   const { data: sessionData } = useSession();
-  const { data: ferments, refetch: refetchFerments } =
-    api.ferment.getAll.useQuery(undefined, {
-      enabled: sessionData?.user !== undefined,
-    });
-
   const createFerment = api.ferment.create.useMutation({});
-
-  return (
-    <>
+  if (sessionData) {
+    return (
       <input
         type="text"
         placeholder="Create ferment"
@@ -28,8 +22,10 @@ const Content: React.FC = () => {
           }
         }}
       />
-    </>
-  );
+    );
+  } else {
+    ("get beta invite ask Rik");
+  }
 };
 
 const ListFerments: React.FC = () => {
@@ -37,15 +33,19 @@ const ListFerments: React.FC = () => {
   const mappedFerments = api.ferment.getAll.useQuery(undefined, {
     enabled: sessionData?.user !== undefined,
   });
-  return (
-    <ul>
-      {mappedFerments.data?.map((ferment) => (
-        <li className="text-center text-2xl text-white" key={ferment.id}>
-          {ferment.title}
-        </li>
-      ))}
-    </ul>
-  );
+  if (sessionData) {
+    return (
+      <ul>
+        {mappedFerments.data?.map((ferment) => (
+          <li className="text-center text-2xl text-white" key={ferment.id}>
+            {ferment.title}
+          </li>
+        ))}
+      </ul>
+    );
+  } else {
+    ("get beta invite ask Rik");
+  }
 };
 
 const User: React.FC = () => {
