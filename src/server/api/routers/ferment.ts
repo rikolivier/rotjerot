@@ -16,8 +16,8 @@ export const fermentRouter = createTRPCRouter({
     .mutation(({ctx, input}) => {
         return ctx.prisma.ferment.create({
         data: {
-            ferment: input.title,
-            id: ctx.session.user.id,
+            title: input.title,
+            userId: ctx.session.user.id,
         },
     });
 })
