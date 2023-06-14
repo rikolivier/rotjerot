@@ -1,16 +1,49 @@
 import { useState } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+
 import { type NextPage } from "next";
 import Head from "next/head";
 import { useSession, signIn, signOut } from "next-auth/react";
 
-import { api } from "../utils/api";
+import { api, type RouterOutputs } from "../utils/api";
+
+type Ferment = RouterOutputs["ferment"]["getAll"][0];
 
 const Content: React.FC = () => {
   const { data: sessionData } = useSession();
-  const createFerment = api.ferment.create.useMutation({});
-  if (sessionData) {
-    return (
+
+  const [selectedFerment, setSelectedFerment] = useState<Ferment | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+  const [animationParent] = useAutoAnimate();
+
+  const { data: ferments, refetch: refetchFerments } =
+    api.ferment.getAll.useQuery(undefined, {
+      enabled: sessionData?.user !== undefined,
+      onSuccess: (data) => {
+        setSelectedFerment(selectedFerment ?? data[0] ?? null);
+      },
+    });
+
+  const createFerment = api.ferment.create.useMutation({
+    onSuccess: () => {
+      void refetchFerments();
+    },
+  });
+
+  const deleteFerment = api.ferment.delete.useMutation({
+    onSuccess: () => {
+      void refetchFerments();
+    },
+  });
+
+  if (!sessionData) {
+    return <ul>please login</ul>;
+  }
+
+  return (
+    <div>
       <input
+        className="shadow-outline max-w-fit appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
         type="text"
         placeholder="Create ferment"
         onKeyDown={(e) => {
@@ -22,30 +55,31 @@ const Content: React.FC = () => {
           }
         }}
       />
-    );
-  } else {
-    ("get beta invite ask Rik");
-  }
-};
-
-const ListFerments: React.FC = () => {
-  const { data: sessionData } = useSession();
-  const mappedFerments = api.ferment.getAll.useQuery(undefined, {
-    enabled: sessionData?.user !== undefined,
-  });
-  if (sessionData) {
-    return (
-      <ul>
-        {mappedFerments.data?.map((ferment) => (
-          <li className="text-center text-2xl text-white" key={ferment.id}>
-            {ferment.title}
-          </li>
-        ))}
-      </ul>
-    );
-  } else {
-    ("get beta invite ask Rik");
-  }
+      {ferments?.length !== 0 && (
+        <div className="text-black-600 max-w-m overflow-hidden rounded bg-white">
+          <div
+            className=" px-6 py-4"
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            ref={animationParent}
+          >
+            {ferments?.map((ferment: Ferment) => (
+              <div key={ferment.id} className="flex justify-between">
+                <span>{ferment.title}</span>
+                <span>
+                  <button
+                    className="text-red-500"
+                    onClick={() => deleteFerment.mutate(ferment)}
+                  >
+                    x
+                  </button>
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 const User: React.FC = () => {
@@ -71,7 +105,6 @@ const Home: NextPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const createFerment = () => {
-    //  create prisma entry
     setIsLoading(false);
   };
   const handleLoading = () => {
@@ -92,7 +125,6 @@ const Home: NextPage = () => {
           An explosive knowledge sharer and fermentation tracker in a visual way
         </p>
         <Content />
-        <ListFerments />
         <button
           className={[
             `rounded bg-purple-900 py-2 px-4 font-bold text-white hover:bg-purple-600`,
