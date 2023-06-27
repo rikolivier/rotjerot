@@ -37,7 +37,7 @@ const Content: React.FC = () => {
   });
 
   if (!sessionData) {
-    return <ul>please login</ul>;
+    return <ul>Ask for login or login with discord</ul>;
   }
 
   return (
@@ -56,41 +56,61 @@ const Content: React.FC = () => {
         }}
       />
       {ferments?.length !== 0 && (
-        <div className="text-black-600 max-w-m overflow-hidden rounded bg-white">
-          <div
-            className=" px-6 py-4"
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            ref={animationParent}
-          >
-            {ferments?.map((ferment: Ferment) => (
-              <div key={ferment.id} className="flex justify-between">
-                <span>{ferment.title}</span>
-                <span>
-                  <button
-                    className="text-red-500"
-                    onClick={() => deleteFerment.mutate(ferment)}
-                  >
-                    x
-                  </button>
-                </span>
-              </div>
-            ))}
-          </div>
+        // <div className="text-black-600 max-w-m my-2 overflow-hidden rounded border bg-white">
+        <div
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          ref={animationParent}
+        >
+          {ferments?.map((ferment: Ferment) => (
+            <div
+              key={ferment.id}
+              className="text-black-600 max-w-m my-2 flex justify-between overflow-hidden rounded border bg-white p-4"
+            >
+              <span>{ferment.title}</span>
+              <span>
+                <button
+                  className="text-red-500"
+                  onClick={() => deleteFerment.mutate(ferment)}
+                >
+                  x
+                </button>
+              </span>
+            </div>
+          ))}
         </div>
       )}
     </div>
   );
 };
 
+const OldContent = (
+  <>
+    <h2 className="text-3xl font-bold  text-white">I am alive</h2>
+    <p className="text-white">
+      An explosive knowledge sharer and fermentation tracker in a visual way
+    </p>
+    <Content />
+    <button
+      className={[
+        `rounded bg-purple-900 py-2 px-4 font-bold text-white hover:bg-purple-600`,
+        // `${isLoading ? "isLoading" : "loaded"}`,
+      ].join(" ")}
+      // onClick={handleLoading}
+    >
+      Create first ferment
+    </button>
+  </>
+);
+
 const User: React.FC = () => {
   const { data: sessionData } = useSession();
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <p className="text-center text-2xl text-white">
-        {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
+        {/* {sessionData && <span>Logged in as {sessionData.user?.name}</span>} */}
       </p>
       <button
-        className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
+        className="mx-10 my-10 rounded-full bg-black/100 px-10 py-3 font-semibold text-white no-underline transition hover:bg-black/60"
         onClick={sessionData ? () => void signOut() : () => void signIn()}
       >
         {sessionData ? "Afmelden" : "Aanmelden"}
@@ -101,39 +121,27 @@ const User: React.FC = () => {
 
 const Home: NextPage = () => {
   // add isLoading state to button
-  // handleCreateFerment
-  const [isLoading, setIsLoading] = useState(false);
+  // // handleCreateFerment
+  // const [isLoading, setIsLoading] = useState(false);
 
-  const createFerment = () => {
-    setIsLoading(false);
-  };
-  const handleLoading = () => {
-    setIsLoading(true);
-    createFerment;
-    setTimeout(setIsLoading, 1000);
-  };
+  // const createFerment = () => {
+  //   setIsLoading(false);
+  // };
+  // const handleLoading = () => {
+  //   setIsLoading(true);
+  //   createFerment;
+  //   setTimeout(setIsLoading, 1000);
+  // };
   return (
     <>
       <Head>
         <title>Rotje Rot - 2023</title>
         <meta name="description" content="Rotje Rot" />
       </Head>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#000003] to-[#000001]">
+      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#eeeeee] to-[#fdf9f9]">
         <User />
-        <h2 className="text-3xl font-bold  text-white">I am alive</h2>
-        <p className="text-white">
-          An explosive knowledge sharer and fermentation tracker in a visual way
-        </p>
+        {/* {OldContent} */}
         <Content />
-        <button
-          className={[
-            `rounded bg-purple-900 py-2 px-4 font-bold text-white hover:bg-purple-600`,
-            `${isLoading ? "isLoading" : "loaded"}`,
-          ].join(" ")}
-          onClick={handleLoading}
-        >
-          Create first ferment
-        </button>
       </main>
     </>
   );
