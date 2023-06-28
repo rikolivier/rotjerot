@@ -69,7 +69,7 @@ const Content: React.FC = () => {
               <span>{ferment.title}</span>
               <span>
                 <button
-                  className="text-red-500"
+                 style={{ color:'oklch(65.15% 0.296 25.94)'}}
                   onClick={() => deleteFerment.mutate(ferment)}
                 >
                   x
@@ -111,6 +111,8 @@ const User: React.FC = () => {
       </p>
       <button
         className="mx-10 my-10 rounded-full bg-black/100 px-10 py-3 font-semibold text-white no-underline transition hover:bg-black/60"
+        style={{ backgroundColor:'oklch(65.15% 0.296 25.94)'}}
+
         onClick={sessionData ? () => void signOut() : () => void signIn()}
       >
         {sessionData ? "Afmelden" : "Aanmelden"}
