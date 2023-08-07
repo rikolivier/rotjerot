@@ -13,8 +13,8 @@ const Content: React.FC = () => {
   const { data: sessionData } = useSession();
 
   const [selectedFerment, setSelectedFerment] = useState<Ferment | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-  const [animationParent] = useAutoAnimate();
+
+  const [parent, enableAnimations] = useAutoAnimate(/* optional config */);
 
   const { data: ferments, refetch: refetchFerments } =
     api.ferment.getAll.useQuery(undefined, {
@@ -32,7 +32,7 @@ const Content: React.FC = () => {
 
   const deleteFerment = api.ferment.delete.useMutation({
     onSuccess: () => {
-      void refetchFerments();
+      void refetchFerments(), enableAnimations(false);
     },
   });
 
@@ -43,7 +43,7 @@ const Content: React.FC = () => {
   return (
     <div>
       <input
-        className="shadow-outline max-w-fit appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+        className="shadow-outline max-w-fit appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
         type="text"
         placeholder="Create ferment"
         onKeyDown={(e) => {
@@ -59,7 +59,7 @@ const Content: React.FC = () => {
         // <div className="text-black-600 max-w-m my-2 overflow-hidden rounded border bg-white">
         <div
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          ref={animationParent}
+          ref={parent}
         >
           {ferments?.map((ferment: Ferment) => (
             <div
@@ -69,7 +69,7 @@ const Content: React.FC = () => {
               <span>{ferment.title}</span>
               <span>
                 <button
-                 style={{ color:'oklch(65.15% 0.296 25.94)'}}
+                  style={{ color: "oklch(65.15% 0.296 25.94)" }}
                   onClick={() => deleteFerment.mutate(ferment)}
                 >
                   x
@@ -92,7 +92,7 @@ const OldContent = (
     <Content />
     <button
       className={[
-        `rounded bg-purple-900 py-2 px-4 font-bold text-white hover:bg-purple-600`,
+        `rounded bg-purple-900 px-4 py-2 font-bold text-white hover:bg-purple-600`,
         // `${isLoading ? "isLoading" : "loaded"}`,
       ].join(" ")}
       // onClick={handleLoading}
@@ -111,8 +111,7 @@ const User: React.FC = () => {
       </p>
       <button
         className="mx-10 my-10 rounded-full bg-black/100 px-10 py-3 font-semibold text-white no-underline transition hover:bg-black/60"
-        style={{ backgroundColor:'oklch(65.15% 0.296 25.94)'}}
-
+        style={{ backgroundColor: "oklch(65.15% 0.296 25.94)" }}
         onClick={sessionData ? () => void signOut() : () => void signIn()}
       >
         {sessionData ? "Afmelden" : "Aanmelden"}
