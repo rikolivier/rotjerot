@@ -66,7 +66,11 @@ const Content: React.FC = () => {
               key={ferment.id}
               className="text-black-600 max-w-m my-2 flex justify-between overflow-hidden rounded border bg-white p-4"
             >
-              <span>{ferment.title}</span>
+              <div>
+                <span>{ferment.title}</span>
+                <span>{ferment.createdAt.getDate()}</span>
+                <span>{ferment.updatedAt.getDate()}</span>
+              </div>
               <span>
                 <button
                   style={{ color: "oklch(65.15% 0.296 25.94)" }}
