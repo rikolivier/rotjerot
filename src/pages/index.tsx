@@ -56,27 +56,27 @@ const Content: React.FC = () => {
         }}
       />
       {ferments?.length !== 0 && (
-        // <div className="text-black-600 max-w-m my-2 overflow-hidden rounded border bg-white">
-        <div
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          ref={parent}
-        >
+        <div ref={parent}>
           {ferments?.map((ferment: Ferment) => (
             <div
               key={ferment.id}
-              className="text-black-600 max-w-m my-2 flex justify-between overflow-hidden rounded border bg-white p-4"
+              className="text-black-600 max-w-m my-2 flex justify-between overflow-hidden rounded-3xl border bg-white p-4"
             >
               <div>
-                <span>{ferment.title}</span>
-                <span>{ferment.createdAt.getDate()}</span>
-                <span>{ferment.updatedAt.getDate()}</span>
+                Name: <span>{ferment.title}</span>
+                <br />
+                Created on:{" "}
+                <span>{ferment.createdAt.toLocaleDateString()}</span>
               </div>
               <span>
                 <button
-                  style={{ color: "oklch(65.15% 0.296 25.94)" }}
+                  style={{
+                    color: "oklch(65.15% 0.296 25.94)",
+                  }}
+                  className="m-2 rounded-3xl p-4"
                   onClick={() => deleteFerment.mutate(ferment)}
                 >
-                  x
+                  delete
                 </button>
               </span>
             </div>
@@ -125,18 +125,6 @@ const User: React.FC = () => {
 };
 
 const Home: NextPage = () => {
-  // add isLoading state to button
-  // // handleCreateFerment
-  // const [isLoading, setIsLoading] = useState(false);
-
-  // const createFerment = () => {
-  //   setIsLoading(false);
-  // };
-  // const handleLoading = () => {
-  //   setIsLoading(true);
-  //   createFerment;
-  //   setTimeout(setIsLoading, 1000);
-  // };
   return (
     <>
       <Head>
@@ -145,7 +133,6 @@ const Home: NextPage = () => {
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#eeeeee] to-[#fdf9f9]">
         <User />
-        {/* {OldContent} */}
         <Content />
       </main>
     </>
