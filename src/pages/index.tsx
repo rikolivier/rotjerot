@@ -30,6 +30,12 @@ const Content: React.FC = () => {
     },
   });
 
+  // const updateFerment = api.ferment.update.useMutation({
+  //   onSuccess: () => {
+  //     void refetchFerments();
+  //   },
+  // });
+
   const deleteFerment = api.ferment.delete.useMutation({
     onSuccess: () => {
       void refetchFerments(), enableAnimations(false);
@@ -37,7 +43,7 @@ const Content: React.FC = () => {
   });
 
   if (!sessionData) {
-    return <ul>Ask for login or login with discord</ul>;
+    return <ul>Ask for login or login with discord </ul>;
   }
 
   return (
@@ -57,30 +63,42 @@ const Content: React.FC = () => {
       />
       {ferments?.length !== 0 && (
         <div ref={parent}>
-          {ferments?.map((ferment: Ferment) => (
-            <div
-              key={ferment.id}
-              className="text-black-600 max-w-m my-2 flex justify-between overflow-hidden rounded-3xl border bg-white p-4"
-            >
-              <div>
-                Name: <span>{ferment.title}</span>
-                <br />
-                Created on:{" "}
-                <span>{ferment.createdAt.toLocaleDateString()}</span>
+          {ferments?.map((ferment: Ferment) => {
+            return (
+              <div
+                key={ferment.id}
+                className="text-black-600 max-w-m rounded-1xl my-2 flex justify-between overflow-hidden border bg-white p-4"
+              >
+                <div>
+                  Name: <span>{ferment.title}</span>
+                  <br />
+                  Created on:{" "}
+                  <span>{ferment.createdAt.toLocaleDateString()}</span>
+                  <br />
+                  {/* Updated: <span>{ferment.updatedAt.toLocaleDateString()}</span> */}
+                  {/* 
+                  Idea
+                  Age gradient component based on color input *checkpoints and start and end desired color
+                  - Now line
+                  - Created on line
+                  - Color checkpoints
+                  - Harvest line
+                   */}
+                </div>
+                <span>
+                  <button
+                    style={{
+                      color: "oklch(65.15% 0.296 25.94)",
+                    }}
+                    className="m-2 rounded-3xl p-4"
+                    onClick={() => deleteFerment.mutate(ferment)}
+                  >
+                    delete
+                  </button>
+                </span>
               </div>
-              <span>
-                <button
-                  style={{
-                    color: "oklch(65.15% 0.296 25.94)",
-                  }}
-                  className="m-2 rounded-3xl p-4"
-                  onClick={() => deleteFerment.mutate(ferment)}
-                >
-                  delete
-                </button>
-              </span>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>
