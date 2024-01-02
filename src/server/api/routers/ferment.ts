@@ -29,9 +29,4 @@ export const fermentRouter = createTRPCRouter({
         },
       });
     }),
-//   update: protectedProcedure
-//     .input(z.object({ note: z.string() }))
-//     .mutation(({ ctx, input }) => {
-//       return ctx.prisma.ferment.update({select.ctx.userId
-//     }),
 });
