@@ -6,6 +6,7 @@ import Head from "next/head";
 import { useSession, signIn, signOut } from "next-auth/react";
 
 import { api, type RouterOutputs } from "../utils/api";
+import Link from "next/link";
 
 type Ferment = RouterOutputs["ferment"]["getAll"][0];
 
@@ -99,8 +100,6 @@ const Content: React.FC = () => {
   );
 };
 
-
-
 const User: React.FC = () => {
   const { data: sessionData } = useSession();
   return (
@@ -126,6 +125,9 @@ const Home: NextPage = () => {
         <title>Rotje Rot - 2024</title>
         <meta name="description" content="Rotje Rot" />
       </Head>
+      <Link href="/about" className="text-blue-600">
+        About
+      </Link>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#eeeeee] to-[#fdf9f9]">
         <User />
         <Content />

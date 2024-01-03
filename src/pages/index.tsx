@@ -13,8 +13,8 @@ const OldContent = (
   </>
 );
 
-const About: NextPage = () => {
+const Home: NextPage = () => {
   return OldContent;
 };
 
-export default About;
+export default Home;
