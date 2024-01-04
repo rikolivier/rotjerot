@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import Link from "next/link";
+import { User } from "../components/user";
 
 const OldContent = (
   <>
@@ -7,9 +8,10 @@ const OldContent = (
     <p className="text-black">
       An explosive knowledge sharer and fermentation tracker in a visual way
     </p>
-    <Link href="/login" className="text-blue-600">
-      Login
+    <Link href="/overview" className="text-blue-600">
+      overview
     </Link>
+    <User />
   </>
 );
 

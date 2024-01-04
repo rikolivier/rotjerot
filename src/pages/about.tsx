@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import Link from "next/link";
+import { User } from "../components/user";
 
 const About: NextPage = () => {
   return (
@@ -8,9 +9,7 @@ const About: NextPage = () => {
       <p className="text-black">
         An explosive knowledge sharer and fermentation tracker in a visual way
       </p>
-      <Link href="/login" className="text-blue-600">
-        Login
-      </Link>
+      <User />
     </>
   );
 };
