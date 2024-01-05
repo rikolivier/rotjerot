@@ -8,12 +8,14 @@ import { api, type RouterOutputs } from "../utils/api";
 import Link from "next/link";
 
 type Ferment = RouterOutputs["ferment"]["getAll"][0];
-// type Note = RouterOutputs["note"]["getAll"][0];
+type Note = RouterOutputs["note"]["getAll"][0];
 
 const Content: React.FC = () => {
   const { data: sessionData } = useSession();
 
   const [selectedFerment, setSelectedFerment] = useState<Ferment | null>(null);
+
+  const [selectedNote, setSelectedNote] = useState<Note | null>(null);
 
   const { data: ferments, refetch: refetchFerments } =
     api.ferment.getAll.useQuery(undefined, {
@@ -22,6 +24,16 @@ const Content: React.FC = () => {
         setSelectedFerment(selectedFerment ?? data[0] ?? null);
       },
     });
+
+  const { data: notes, refetch: refetchNotes } = api.note.getAll.useQuery(
+    undefined,
+    {
+      enabled: sessionData?.user !== undefined,
+      onSuccess: (data) => {
+        setSelectedNote(selectedNote ?? data[0] ?? null);
+      },
+    }
+  );
 
   const createFerment = api.ferment.create.useMutation({
     onSuccess: () => {
@@ -64,7 +76,14 @@ const Content: React.FC = () => {
                   Created on:{" "}
                   <span>{ferment.createdAt.toLocaleDateString()}</span>
                   <br />
-                  <span></span>
+                  Updated on:{" "}
+                  <span>{ferment.updatedAt.toLocaleDateString()}</span>
+                  {notes && notes[0]?.fermentId === ferment.id && (
+                    <>
+                      <br />
+                      Note: <span>{notes[0].content}</span>
+                    </>
+                  )}
                   {/* Updated: <span>{ferment.updatedAt.toLocaleDateString()}</span> */}
                   {/* 
                   Idea
