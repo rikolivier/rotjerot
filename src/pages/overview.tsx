@@ -8,6 +8,7 @@ import { api, type RouterOutputs } from "../utils/api";
 import Link from "next/link";
 
 type Ferment = RouterOutputs["ferment"]["getAll"][0];
+// type Note = RouterOutputs["note"]["getAll"][0];
 
 const Content: React.FC = () => {
   const { data: sessionData } = useSession();
@@ -63,6 +64,7 @@ const Content: React.FC = () => {
                   Created on:{" "}
                   <span>{ferment.createdAt.toLocaleDateString()}</span>
                   <br />
+                  <span></span>
                   {/* Updated: <span>{ferment.updatedAt.toLocaleDateString()}</span> */}
                   {/* 
                   Idea

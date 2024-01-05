@@ -19,6 +19,13 @@ export const fermentRouter = createTRPCRouter({
       },
     });
   }),
+  getAllNotes: protectedProcedure.query(({ ctx }) => {
+    return ctx.prisma.note.findMany({
+      where: {
+        fermentId: ctx.session.user.id,
+      },
+    });
+  }),
   create: protectedProcedure
     .input(z.object({ title: z.string() }))
     .mutation(({ ctx, input }) => {
