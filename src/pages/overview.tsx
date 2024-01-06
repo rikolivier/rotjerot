@@ -78,6 +78,8 @@ const Content: React.FC = () => {
                   <br />
                   Updated on:{" "}
                   <span>{ferment.updatedAt.toLocaleDateString()}</span>
+                  <br />
+                  Type: <span>{ferment.type}</span>
                   {notes && notes[0]?.fermentId === ferment.id && (
                     <>
                       <br />
