@@ -26,23 +26,7 @@ const Content: React.FC = () => {
       },
     });
 
-  const { data: notes, refetch: refetchNotes } = api.note.getAll.useQuery(
-    undefined,
-    {
-      enabled: sessionData?.user !== undefined,
-      onSuccess: (data) => {
-        setSelectedNote(selectedNote ?? data[0] ?? null);
-      },
-    }
-  );
-
   const createFerment = api.ferment.create.useMutation({
-    onSuccess: () => {
-      void refetchFerments();
-    },
-  });
-
-  const deleteFerment = api.ferment.delete.useMutation({
     onSuccess: () => {
       void refetchFerments();
     },
