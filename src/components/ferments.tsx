@@ -7,5 +7,5 @@ type Ferment = RouterOutputs["ferment"]["getAll"][0];
 type Note = RouterOutputs["note"]["getAll"][0];
 
 export const Ferments: React.FC = () => {
-  return "Ferements";
+  return <div>Ferments</div>;
 };

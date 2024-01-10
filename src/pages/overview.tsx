@@ -33,7 +33,7 @@ const Content: React.FC = () => {
   });
 
   if (!sessionData) {
-    return <ul>Ask for login rik.olivier@gmail.com </ul>;
+    return <ul>Ask for login rik.olivier@gmail.com</ul>;
   }
 
   return (
