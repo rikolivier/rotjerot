@@ -2,3 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+section {
+  background-color: rgb(26, 0, 51);
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+}
+
+section .ferment {
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  padding: 22px 22px;
+  margin: 4px;
+  border-radius: 20px;
+  height: 100%;
+}

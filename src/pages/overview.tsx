@@ -37,7 +37,7 @@ const Content: React.FC = () => {
   }
 
   return (
-    <div>
+    <>
       <input
         type="text"
         placeholder="Create ferment"
@@ -51,7 +51,7 @@ const Content: React.FC = () => {
         }}
       />
       <Ferments />
-    </div>
+    </>
   );
 };
 
@@ -62,10 +62,12 @@ const Home: NextPage = () => {
         <title>Rotje Rot - 2024</title>
         <meta name="description" content="Rotje Rot" />
       </Head>
-      <Link href="/" className="text-blue-600">
-        Home
-      </Link>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#eeeeee] to-[#fdf9f9]">
+      <header>
+        <Link href="/" className="text-blue-600">
+          Home
+        </Link>
+      </header>
+      <main>
         <Content />
       </main>
     </>
