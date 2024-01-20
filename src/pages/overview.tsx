@@ -9,22 +9,18 @@ import Link from "next/link";
 import { Ferments } from "../components/ferments";
 
 type Ferment = RouterOutputs["ferment"]["getAll"][0];
-type Note = RouterOutputs["note"]["getAll"][0];
 
-const Content: React.FC = () => {
+const Create: React.FC = () => {
   const { data: sessionData } = useSession();
 
   const [selectedFerment, setSelectedFerment] = useState<Ferment | null>(null);
 
-  const [selectedNote, setSelectedNote] = useState<Note | null>(null);
-
-  const { data: ferments, refetch: refetchFerments } =
-    api.ferment.getAll.useQuery(undefined, {
-      enabled: sessionData?.user !== undefined,
-      onSuccess: (data) => {
-        setSelectedFerment(selectedFerment ?? data[0] ?? null);
-      },
-    });
+  const { refetch: refetchFerments } = api.ferment.getAll.useQuery(undefined, {
+    enabled: sessionData?.user !== undefined,
+    onSuccess: (data) => {
+      setSelectedFerment(selectedFerment ?? data[0] ?? null);
+    },
+  });
 
   const createFerment = api.ferment.create.useMutation({
     onSuccess: () => {
@@ -32,12 +28,8 @@ const Content: React.FC = () => {
     },
   });
 
-  if (!sessionData) {
-    return <ul>Ask for login rik.olivier@gmail.com</ul>;
-  }
-
   return (
-    <>
+    <span className="create-ferment">
       <input
         type="text"
         placeholder="Create ferment"
@@ -50,8 +42,7 @@ const Content: React.FC = () => {
           }
         }}
       />
-      <Ferments />
-    </>
+    </span>
   );
 };
 
@@ -62,13 +53,12 @@ const Home: NextPage = () => {
         <title>Rotje Rot - 2024</title>
         <meta name="description" content="Rotje Rot" />
       </Head>
-      <header>
-        <Link href="/" className="text-blue-600">
-          Home
-        </Link>
-      </header>
+      <nav>
+        <Link href="/">Home</Link>
+      </nav>
       <main>
-        <Content />
+        <Create />
+        <Ferments />
       </main>
     </>
   );
