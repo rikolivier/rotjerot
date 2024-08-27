@@ -6,7 +6,7 @@ const Home: NextPage = () => {
     <>
       <NavBar />
       <main>
-        <h1>Welcome to RotjeRot</h1>
+        <h1>RotjeRot</h1>
         <p className="text-black">
           An explosive knowledge sharer and fermentation tracker in a visual way
         </p>
