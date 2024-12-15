@@ -5,7 +5,7 @@ const About: NextPage = () => {
   return (
     <>
       <NavBar />
-      <h1>Make dreams work in 2024</h1>
+      <h1>Do what you love</h1>
       <p className="text-black">
         An explosive knowledge sharer and fermentation tracker in a visual way
       </p>
