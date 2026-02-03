@@ -1,4 +1,4 @@
-# Rotje rot | Make my dreams work in 2024
+# Rotje rot 
 
 A explosive knowledge sharer and fermentation tracker in a visual way
 
